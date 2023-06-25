@@ -51,17 +51,35 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
             list?.let { pokemosFavouriteList ->
                 pokemonAdapter.updateData(pokemosFavouriteList)
                 if (pokemosFavouriteList.isEmpty()) {
-                    binding.favouriteFragmentRecyclerView.visibility=View.GONE
-                    binding.noPokemonTextView.visibility=View.VISIBLE
-                } else {
-                    binding.favouriteFragmentRecyclerView.visibility=View.VISIBLE
-                    binding.noPokemonTextView.visibility=View.GONE
 
+                    hideRecyclerView()
+                } else {
+                    showRecyclerView()
                 }
             }
 
         })
 
+    }
+
+    private fun showRecyclerView() {
+        binding.favouriteFragmentRecyclerView.visibility = View.VISIBLE
+        binding.noPokemonTextView.visibility = View.GONE
+
+    }
+
+    private fun hideRecyclerView() {
+        binding.favouriteFragmentRecyclerView.visibility = View.GONE
+        binding.noPokemonTextView.visibility = View.VISIBLE
+    }
+
+
+    private fun setUpRecyclerView() {
+        pokemonAdapter = PokemonAdapter(emptyList())
+        binding.favouriteFragmentRecyclerView.apply {
+            adapter = pokemonAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
     }
 
     private fun setupSwipe() {
@@ -80,7 +98,7 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
                 pokemonViewModel.deletePokemon(swipedPokemon.name)
                 pokemonAdapter.notifyDataSetChanged()
                 view?.let {
-                    Snackbar.make(it, "Successfully deleted pokemon", Snackbar.LENGTH_LONG).apply {
+                    Snackbar.make(it, "Successfully deleted pokemon", Snackbar.LENGTH_SHORT).apply {
                         setAction("Undo") {
                             pokemonViewModel.insertPokemon(pokemon = swipedPokemon)
                         }
@@ -93,14 +111,4 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(binding.favouriteFragmentRecyclerView)
     }
-
-
-    private fun setUpRecyclerView() {
-        pokemonAdapter = PokemonAdapter(emptyList())
-        binding.favouriteFragmentRecyclerView.apply {
-            adapter = pokemonAdapter
-            layoutManager = LinearLayoutManager(activity)
-        }
-    }
-
 }
