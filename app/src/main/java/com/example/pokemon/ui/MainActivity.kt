@@ -7,7 +7,10 @@ import android.os.Parcelable
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pokemon.R
 import com.example.pokemon.adapters.PokemonAdapter
@@ -20,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity() : AppCompatActivity() {
 
 
+    private lateinit var navController: NavController
     lateinit var pokemonViewModel: PokemonViewModel
     private lateinit var binding: ActivityMainBinding
 
@@ -36,9 +40,16 @@ class MainActivity() : AppCompatActivity() {
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
+        setSupportActionBar(binding.toolbar)
+        NavigationUI.setupActionBarWithNavController(this,navController)
 
 
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
 
