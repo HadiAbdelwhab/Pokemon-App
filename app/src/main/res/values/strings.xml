@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Pokemon</string>
+    <string name="no_favourite_pokemons_text_view">No favourite pokemons!!</string>
 </resources>

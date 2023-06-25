@@ -48,8 +48,16 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
         setupSwipe()
 
         pokemonViewModel.allFavouritePokemons.observe(viewLifecycleOwner, Observer { list ->
-            list?.let {
-                pokemonAdapter.updateData(it)
+            list?.let { pokemosFavouriteList ->
+                pokemonAdapter.updateData(pokemosFavouriteList)
+                if (pokemosFavouriteList.isEmpty()) {
+                    binding.favouriteFragmentRecyclerView.visibility=View.GONE
+                    binding.noPokemonTextView.visibility=View.VISIBLE
+                } else {
+                    binding.favouriteFragmentRecyclerView.visibility=View.VISIBLE
+                    binding.noPokemonTextView.visibility=View.GONE
+
+                }
             }
 
         })
