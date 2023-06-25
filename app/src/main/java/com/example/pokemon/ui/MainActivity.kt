@@ -18,8 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity() : AppCompatActivity() {
+
+
     lateinit var pokemonViewModel: PokemonViewModel
-    //private lateinit var pokemonAdapter: PokemonAdapter*/
     private lateinit var binding: ActivityMainBinding
 
 
