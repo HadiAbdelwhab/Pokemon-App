@@ -1,5 +1,5 @@
 # Pokemon-App
-This is a simple Android app built with Kotlin that fetches Pokemon data from API and displays it.
+This is a simple Android app built with Kotlin that fetches Pokemon data from API and displays it, you can save some Pokemon in the local database(room).
 
 ## Features
 
